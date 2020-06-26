@@ -1,6 +1,9 @@
 from flask import Flask, request, make_response
 from recipe_scrapers import scrape_me
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/api/parse', methods=["GET"])
 def parse_recipe():
@@ -54,7 +57,6 @@ def about_api():
                 "image": ""
             }
         </code>
-        
 
     """
 
