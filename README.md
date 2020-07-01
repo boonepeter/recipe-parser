@@ -64,46 +64,16 @@ Returns the following:
         "1 1/2 cups raisins"
     ],
     recipeInstructions: [
-        {
-            @type: "HowToStep",
-            text: "Preheat oven to 350&deg;."
-        },
-        {
-            @type: "HowToStep",
-            text: "Whisk dry ingredients; set aside."
-        },
-        {
-            @type: "HowToStep",
-            text: "Combine wet ingredients with a hand mixer on low."
-        },
-        {
-            @type: "HowToStep",
-            text: "To cream, increase speed to high and beat until fluffy and the color lightens."
-        },
-        {
-            @type: "HowToStep",
-            text: "Stir the flour mixture into the creamed mixture until no flour is visible."
-        },
-        {
-            @type: "HowToStep",
-            text: "(Over mixing develops the gluten, making a tough cookie.) Now add the oats and raisins; stir to incorporate."
-        },
-        {
-            @type: "HowToStep",
-            text: "Fill a #40 cookie scoop and press against side of bowl, pulling up to level dough (to measure 2 tablespoons of dough)."
-        },
-        {
-            @type: "HowToStep",
-            text: "Drop 2-inches apart onto baking sheet sprayed with nonstick spray."
-        },
-        {
-            @type: "HowToStep",
-            text: "Bake 11-13 minutes (on center rack), until golden, but still moist beneath cracks on top."
-        },
-        {
-            @type: "HowToStep",
-            text: "Remove from oven; let cookies sit on baking sheet for 2 minutes before transferring to a wire rack to cool."
-        }
+            "Preheat oven to 350&deg;.",
+            "Whisk dry ingredients; set aside.",
+            "Combine wet ingredients with a hand mixer on low.",
+            "To cream, increase speed to high and beat until fluffy and the color lightens.",
+            "Stir the flour mixture into the creamed mixture until no flour is visible.",
+            "(Over mixing develops the gluten, making a tough cookie.) Now add the oats and raisins; stir to incorporate.",
+            "Fill a #40 cookie scoop and press against side of bowl, pulling up to level dough (to measure 2 tablespoons of dough).",
+            "Drop 2-inches apart onto baking sheet sprayed with nonstick spray.",
+            "Bake 11-13 minutes (on center rack), until golden, but still moist beneath cracks on top.",
+            "Remove from oven; let cookies sit on baking sheet for 2 minutes before transferring to a wire rack to cool."
     ],
     recipeYield: "36 cookies, 36 serving(s)",
     review: [
@@ -134,8 +104,4 @@ I am using it with my [some-recipes](https://github.com/boonepeter/some-recipes)
 
 ## Notes
 
-- `recipeInstructions` could be in a few formats: `string`, `array` of `strings`, or `array` of `HowToStep`s. You will have to handle that.
-
-- `author` might be a `string` or a `Person` with a `name`
-- `keywords` is usually a comma-delimited string
-- `image` is either a string or an `ImageObject` with a `URL` property
+I format the `recipeIngredients` and `author` so just strings are returned.

@@ -3,6 +3,7 @@ from recipe_scrapers import scrape_me
 import scrape_schema_recipe
 from flask_cors import CORS
 from recipe_scrapers._utils import get_minutes
+import html
 
 app = Flask(__name__)
 CORS(app)
@@ -20,25 +21,43 @@ def parse_recipe():
             if 'recipeInstructions' in recipe:
                 ins = recipe['recipeInstructions']
                 if type(ins) == str:
-                    recipe['recipeInstructions'] = [ins]
+                    recipe['recipeInstructions'] = [html.escape(ins)]
                 elif type(ins) == list and len(ins) > 0:
                     if type(ins[0]) == dict:
                         recipe['recipeInstructions'] = []
                         for item in ins:
                             for k, v in item.items():
                                 if k == 'text':
-                                    recipe['recipeInstructions'].append(v)
+                                    recipe['recipeInstructions'].append(html.escape(v))
+                    else:
+                        recipe['recipeInstructions'] = [html.escape(i) for i in recipe['recipeInstructions']]
             if 'keywords' in recipe:
-                recipe['keywords'] = [i.strip() for i in recipe['keywords'].split(',')]
+                recipe['keywords'] = [html.escape(i.strip()) for i in recipe['keywords'].split(',')]
             if 'image' in recipe:
                 if type(recipe['image']) == dict:
                     if 'url' in recipe['image']:
                         recipe['image'] = recipe['image']['url']
+            if 'image' in recipe:
+                if type(recipe['image']) == list:
+                    recipe['image'] = recipe['image'][-1]
             if 'author' in recipe:
                 if type(recipe['author']) == dict and 'name' in recipe['author']:
-                    recipe['author'] = recipe['author']['name']
+                    recipe['author'] = html.escape(recipe['author']['name'])
+            if 'recipeYield' in recipe:
+                rYield = recipe['recipeYield']
+                if type(rYield) == str:
+                    recipe['recipeYield'] = [i.strip() for i in rYield.split(',')][0]
+                if type(rYield) == list and len(rYield) > 0:
+                    recipe['recipeYield'] = rYield[0]
+            if 'cookTime' in recipe:
+                recipe['cookTime'] = get_minutes(recipe['cookTime'])
+            if 'prepTime' in recipe:
+                recipe['prepTime'] = get_minutes(recipe['prepTime'])
+            if 'totalTime' in recipe:
+                recipe['totalTime'] = get_minutes(recipe['totalTime'])
             return recipe
     except Exception as e:
+        print(e.args)
         pass
     
     try:
@@ -57,7 +76,6 @@ def parse_recipe():
         }
         return to_return
     except Exception as e:
-        print(e)
         return make_response(f'Error processing request. That domain might not be in the list\
              See <a href="/api">/api</a> for more info. Error: {e.args}', 500)
 
